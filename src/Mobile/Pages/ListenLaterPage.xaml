@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:res="clr-namespace:Microsoft.NetConf2021.Maui.Resources.Strings"
+             Title="{x:Static res:AppResource.Listen_Later}"
+             xmlns:viewmodels="clr-namespace:Microsoft.NetConf2021.Maui.ViewModels"
+             xmlns:controls="clr-namespace:Microsoft.NetConf2021.Maui.Controls"
+             Style="{StaticResource MainSectionStyle}"
+             xmlns:views="clr-namespace:Microsoft.NetConf2021.Maui.Views"
+             x:Class="Microsoft.NetConf2021.Maui.Pages.ListenLaterPage">
+    <ContentPage.Content>
+        <Grid RowDefinitions="auto,*" Background="{AppThemeBinding Light={StaticResource Grey1}, Dark={StaticResource Grey9}}">
+            <StackLayout Margin="10,0">
+                <controls:HeaderControl IsVisible="{OnIdiom Phone=true, Tablet=false, Desktop=false}" />
+                <Label Text="{x:Static res:AppResource.Listen_Later}"
+                               Style="{StaticResource H5LabelStyle}"
+                        Margin="14,-6,0,0"/>
+            </StackLayout>
+            <CollectionView 
+                ItemsSource="{Binding Episodes}"
+                Margin="10,0"
+                Grid.Row="1">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"
+                                     Span="{OnIdiom Phone=2, Tablet=4, Desktop=4}"
+                                     HorizontalItemSpacing="5"
+                                     VerticalItemSpacing="5" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="viewmodels:EpisodeViewModel">
+                        <views:EpisodeItemView BindingContext="{Binding }"
+                                               RemoveListenLaterCommand="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ListenLaterViewModel}}, Path=RemoveCommand}"
+                                               RemoveListenLaterCommandParameter="{Binding}" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <Grid
+                        RowDefinitions="*, auto"
+                        Padding="{OnIdiom Desktop=200, Default=50}">
+                        <Image 
+                            Source="empty_collection.png"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center" />
+                        <StackLayout HorizontalOptions="CenterAndExpand"
+                             VerticalOptions="CenterAndExpand"
+                             Grid.Row="1"
+                             Spacing="20">
+                            <Label 
+                                Text="You don't have any episodes saved yet."
+                                Style="{StaticResource BodySLabelStyle}"
+                                HorizontalTextAlignment="Center" />
+                            <Label 
+                                Text="Discover podcasts episodes and save them to listen later.."
+                                Style="{StaticResource BodySLabelStyle}"
+                                HorizontalTextAlignment="Center"/>
+                        </StackLayout>
+                    </Grid>
+                </CollectionView.EmptyView>
+            </CollectionView>
+
+            <controls:Player x:Name="player"
+                             Grid.Row="1"
+                             VerticalOptions="End" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
