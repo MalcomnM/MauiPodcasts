@@ -1,12 +1,4 @@
-# .NET Podcasts Website
-
-![Build status](/../../actions/workflows/podcast-web.yml/badge.svg)
-
-## Deploy to Azure
-
-With the following ARM template you can automate the creation of the resources for this website.
-
-[![Deploy to Azure](https://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https://raw.githubusercontent.com/microsoft/dotnet-podcasts/main/deploy/Web/web.deployment.json)
+# .Mauis Podcasts Website
 
 ## Run website locally
 
